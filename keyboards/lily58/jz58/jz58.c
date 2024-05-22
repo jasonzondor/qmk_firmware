@@ -27,7 +27,7 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return rotation;
 }
 
-void render_bootmagic_status_r2g(bool status) {
+void render_bootmagic_status(bool status) {
     /* Show Ctrl-Gui Swap options */
     static const char PROGMEM logo[][2][3] = {
         {{0x97, 0x98, 0}, {0xb7, 0xb8, 0}},
@@ -207,7 +207,6 @@ void oled_render_layer_state(void) {
 bool oled_task_kb(void) {
     if (!oled_task_user()) { return false; }
     if (is_keyboard_master()) {
-        render_bootmagic_status();
         oled_render_layer_state();
     } else {
         get_kb_led_status_caps_lock();
@@ -217,10 +216,4 @@ bool oled_task_kb(void) {
     return false;
 }
 
-// bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-//   if (record->event.pressed) {
-//     set_keylog_r2g(keycode, record);
-//   }
-//   return process_record_user(keycode, record);
-// }
 #endif // OLED_ENABLE
